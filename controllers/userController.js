@@ -1,8 +1,41 @@
-export const join = (req, res) => res.render('join');
-export const login = (req, res) => res.render('login');
-export const logout = (req, res) => res.render('logout');
+import routes from "../routes.js";
+import { home } from "./videoController";
 
-export const users = (req, res) => res.render('users');
-export const userDetail = (req, res) => res.render('userDetail');
-export const editProfile = (req, res) => res.render('editProfile');
-export const changePassword = (req, res) => res.render('changePassword');
+export const getJoin = (req, res) => {
+    res.render('join', { pageTitle: "Join" });
+}
+
+export const postJoin = (req, res) => {
+    const {
+        body: { name, email, password, password2 }
+    } = req;
+    if (password !== password2) {
+        res.status(400);
+        res.render('join', { pageTitle: "Join" });
+    } else {
+        //  TODO register User
+        //  TODO login
+        res.redirect(routes.home)
+    }
+}
+
+export const getlogin = (req, res) => res.render('login',
+    { pageTitle: "Log In" });
+
+export const postlogin = (req, res) => {
+    res.redirect(routes.home);
+}
+
+export const logout = (req, res) => {
+    //process 로그아웃 
+    res.redirect(routes.home);
+}
+
+export const users = (req, res) => res.render('users',
+    { pageTitle: "Users" });
+export const userDetail = (req, res) => res.render('userDetail',
+    { pageTitle: "User Detail" });
+export const editProfile = (req, res) => res.render('editProfile',
+    { pageTitle: "Edit Profile" });
+export const changePassword = (req, res) => res.render('changePassword',
+    { pageTitle: "Change Password" });
